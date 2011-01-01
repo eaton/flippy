@@ -78,7 +78,7 @@ function flippy_field_extra_fields() {
 /**
  * Implements hook_node_view().
  */
-function flippy_node_view(&$node, $view_mode = 'full') {
+function flippy_node_view($node, $view_mode = 'full') {
   if (variable_get('flippy_'. $node->type, NULL)) {
     $node->content['flippy_pager'] = array(
       '#theme' => 'flippy',
@@ -103,7 +103,7 @@ function flippy_node_view(&$node, $view_mode = 'full') {
   }
 }
 
-function flippy_preprocess_node(&$vars) {
+function flippy_preprocess_node($vars) {
   $node = $vars['node'];
   if (node_is_page($node) && ($pager = variable_get('flippy_'. $node->type, NULL))) {
     $vars['flippy']['ids'] = flippy_build_list($node);
@@ -163,7 +163,7 @@ function _flippy_nids_to_nodes(array $pager) {
   return $pager;
 }
 
-function template_preprocess_flippy(&$vars) {
+function template_preprocess_flippy($vars) {
   drupal_add_css(drupal_get_path('module', 'flippy') . '/flippy.css');
   if ($nav = $vars['list']) {
     $vars['first_link'] = empty($nav['first']) ? '' : l('‹ ' . t('first'), 'node/' . $nav['first']);
